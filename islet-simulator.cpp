@@ -290,6 +290,7 @@ void IsletSimulatorClass::setInitialBetaCellVars()
 		
 		
 		// Head an output table for sample randomized variables.
+		cout << "\n  Compiled for " << NUM_CORES << " processor cores.\n";
 		cout << "\nRandomized parameters for the first 10 cells are...\n";
 		cout << fixed << setfill(' ') << setw(10) << "gKATPar" ;
 		// gCoup creates a gaussian distribution which is later normalized
