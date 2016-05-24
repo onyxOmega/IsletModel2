@@ -57,14 +57,14 @@ IsletSimulatorClass::IsletSimulatorClass(IsletFileHandlerClass tempHandler)
 				error checked, converted into the appropriate data type, and 
 				assigned in "setUserDefinedVars()". -WLF
 			*/
-			char buffer[20];
+			char buffer[40];
 			stringstream varStream;
-			userVarFile.getline(buffer, 20);
+			userVarFile.getline(buffer, 40);
 			varStream << buffer;
-			varStream.getline(buffer, 10, '=');
+			varStream.getline(buffer, 40, '=');
 			string strBuffer(buffer);
 			userVarMatrix[0][i] = strBuffer;	
-			varStream.getline(buffer, 10, ';');
+			varStream.getline(buffer, 40, ';');
 			strBuffer.assign(buffer);
 			userVarMatrix[1][i] = strBuffer;
 		}
