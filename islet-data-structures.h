@@ -143,6 +143,8 @@ struct IsletStructure
 	
 	double gCoupMean;
 	double gCoupMultiplier;
+	
+	double GkMultiplier;
 };
 
 struct BetaCellStructure

@@ -216,6 +216,8 @@ void IsletSimulatorClass::setDefaultVars()
 	// mean coupling conductance.
 	islet.gCoupMean = 0.12;
 	islet.gCoupMultiplier = 1.0;
+	
+	islet.GkMultiplier = 1.0;
 }
 
 void IsletSimulatorClass::setInitialBetaCellVars()
@@ -397,6 +399,13 @@ void IsletSimulatorClass::setUserDefinedVars()
 			cout << "  Fixed randomization seed: " << seed << endl;
 			userVariableBool = true;
 		}
+		
+		if(userVarMatrix[0][i] == "GkMultiplier")
+		{
+			islet.GkMultiplier = boost::lexical_cast<double>(userVarMatrix[1][i]);
+			cout << "  Glucokinase rate multiplier: " << islet.GkMultiplier << endl;
+			userVariableBool = true;
+		}
 	}
 	
 	if(userVariableBool == false)
@@ -459,6 +468,7 @@ void IsletSimulatorClass::simulationLoop()
 			
 			double ADPb=cell.ATPar-ATP-MgADP/0.55;
 			double voli=1.049*exp(0.456*cell.nnCount)+738.7;
+			
 			// This resets the Caer values imported from above... Why is that, and how does it effect outcome?
 			Caer=yini4+(islet.fer*voli/2/islet.volER)*(islet.Cm/F/voli*(Vm-yini0)-(Nai-yini1)-(Ki-yini2)-2/islet.fi*(Cai-yini3)); 
 			
@@ -640,7 +650,7 @@ void IsletSimulatorClass::simulationLoop()
 			double IKtot = IbNSC2+IKDr2+IKto2+IKATP2+ITRPM2+ICaL2+INaK2+IKslow2+ICRAN2+Icoup/3;
 			double ICatot = ICaL3+INaCa3+IPMCA3+ICRAN3+Icoup/3+IChR2/2;
 			
-			double JGlyc = cell.KRev*fGlu*(islet.Nt-Re);
+			double JGlyc = islet.GkMultiplier*cell.KRev*fGlu*(islet.Nt-Re);
 			double JBox = islet.Kfa*(islet.Nt-Re);
 
 			// noise parameters
